@@ -192,19 +192,17 @@ jobs:
       run: snyk auth ${{ secrets.SNYK_TOKEN }}
   
     - name: Snyk Container monitor
-      run: snyk container monitor ${{ secrets.DOCKER_USERNAME }}/frontend-js --file=Dockerfile   
+      run: snyk container monitor mohamedmagdykhamis/frontend-js --file=Dockerfile   
       working-directory: ./quiz-app
 
     - name: Run Snyk to check for vulnerabilities in the Docker image
       uses: snyk/actions/docker@master
       with:
-        image: ${{ secrets.DOCKER_USERNAME }}/frontend-js
+        image: mohamedmagdykhamis/frontend-js
         args: --file=quiz-app/Dockerfile --severity-threshold=high
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       continue-on-error: true
-
-
 
   backend-image:
     needs: backend-security
@@ -240,13 +238,13 @@ jobs:
       run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
     - name: Snyk Container monitor
-      run: snyk container monitor ${{ secrets.DOCKER_USERNAME }}/backend-api --file=Dockerfile   
+      run: snyk container monitor mohamedmagdykhamis/backend-api --file=Dockerfile   
       working-directory: ./backend
 
     - name: Run Snyk to check for vulnerabilities in the Docker image
       uses: snyk/actions/docker@master
       with:
-        image: ${{ secrets.DOCKER_USERNAME }}/backend-api
+        image: mohamedmagdykhamis/backend-api
         args: --file=backend/Dockerfile --severity-threshold=high
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
